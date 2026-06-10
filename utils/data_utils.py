@@ -5,8 +5,9 @@ def get_metadata(filepath: str) -> list:
             lines = file.read().split("\n")
 
             return [line for line in lines if line.startswith("!")]
-    except FileNotFoundError as fe: 
-        print(f"file  {filepath} not found")
+    except FileNotFoundError: 
+        print(f"file {filepath} not found")
+        return []
 
 
 def filter_characteristic(metadata: list, keyword: str)-> list: 
