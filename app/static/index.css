@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.upload-box {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    background: #fafafa;
+    cursor: pointer;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+#results {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e9ecef;
+    display: none;
+    white-space: pre-wrap;
+}
