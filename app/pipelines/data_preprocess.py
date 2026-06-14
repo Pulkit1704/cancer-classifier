@@ -32,15 +32,31 @@ class PreProcessor():
 
     def identify_gene_column(self, frame: pd.DataFrame, gene_list: list): 
 
-        if frame.columns.str.lower().isin(list(map(str.lower, gene_list))).any(): 
+        gene_list = list(map(str.lower, gene_list)) 
+
+        if frame.columns.str.lower().isin(gene_list).any(): 
+
+            dp_logger.info("Found gene names in columns. Searching for Sample ID column...")
+        
+            for col in frame.columns:
+                if col.lower() in gene_list:
+                    continue
+                    
+                if frame[col].dtype == 'object' or isinstance(frame[col].iloc[0], str):
+                    dp_logger.info(f"Setting column '{col}' as the Sample ID row index.")
+                    frame = frame.set_index(col, drop=True)
+                    break
+
             return frame 
 
-        if frame.index.isin(gene_list).any(): 
+        if frame.index.str.lower().isin(gene_list).any(): 
             dp_logger.info("found gene names in the index, transposing the frame...")
             return frame.transpose()
         
         for col in frame.columns: 
-            if frame.loc[:, col].isin(gene_list).any(): 
+
+            col_contents = frame.loc[:, col] 
+            if col_contents.str.lower().isin(gene_list).any(): 
                 dp_logger.info(f"found gene names in {col}, setting it as column index")
 
                 frame = frame.set_index(col, drop = True) 
@@ -88,13 +104,15 @@ class PreProcessor():
         if frame is None: 
             raise ValueError(f"No gene column identified in the frame") 
 
+        sample_ids = frame.index.copy()
+
         frame = self.aggregate_duplicates(frame) 
 
         frame = self.impute_missing_genes(frame, training_gene_list) 
 
         frame = self.extract_numeric_features(frame)
 
-        return frame 
+        return frame, sample_ids 
 
 
 class DataProcessingService:
