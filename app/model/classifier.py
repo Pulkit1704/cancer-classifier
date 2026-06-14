@@ -57,13 +57,20 @@ class CancerClassifier():
         return decomposed_data 
     
     
-    def get_probabilities(self, data: np.ndarray): 
+    def get_confidence_score(self, data: np.ndarray): 
 
         decomposed_data = self.get_pca_decomposition(data) 
 
-        scores = self.svc.predict_proba(decomposed_data) 
+        distances = self.svc.decision_function(decomposed_data) 
 
-        return scores 
+        absolute_dist = np.abs(distances)
+
+        min_dist = np.min(absolute_dist) 
+        max_dist = np.max(absolute_dist) 
+
+        scaled_distances = (absolute_dist - min_dist) / (max_dist - min_dist)
+
+        return np.round(scaled_distances, 2)
     
     
     def standardize_input(self, data: np.ndarray): 

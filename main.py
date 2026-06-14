@@ -31,9 +31,9 @@ async def predict(file: UploadFile = File(...)):
 
     gene_list = await read_gene_list(gene_list_filepath=gene_list_path)
 
-    result_frame = await DataProcessingService.process(file, gene_list) 
+    processed_data, sample_ids = await DataProcessingService.process(file, gene_list) 
 
-    if result_frame is None: 
+    if processed_data is None: 
         logging.error("file processing failed") 
         return {
             "status": "failed", 
@@ -46,13 +46,18 @@ async def predict(file: UploadFile = File(...)):
         logging.error(f"failed to load model")
         return 
 
-    predictions = await inference_model.predict(result_frame)
+    predictions = await inference_model.predict(processed_data)
+    prediction_probabilities = await inference_model.scores(processed_data)
 
-    return {
-    "status": "success",
-    "predictions": predictions.tolist()
-    }
+    formatted_results = []
+    for sample_id, pred, prob in zip(sample_ids, predictions.tolist(), prediction_probabilities.tolist()):
+        formatted_results.append({
+            "sample_id": sample_id,
+            "prediction": pred,
+            "confidence": prob  
+        })
 
+    return formatted_results
 
 if __name__ == '__main__':
 

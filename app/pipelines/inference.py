@@ -2,12 +2,12 @@ from ..utils.io import load_model
 import numpy as np 
 import logging 
 from pathlib import Path
+from ..model.classifier import CancerClassifier
 
 
 class InferencePipeline(): 
 
-
-    def __init__(self, model): 
+    def __init__(self, model: CancerClassifier): 
 
         self.model = model 
     
@@ -29,11 +29,9 @@ class InferencePipeline():
         return predictions 
     
 
-    def scores(self, input_data): 
+    async def scores(self, input_data): 
 
-        decomposed_inputs = self.model.pca_components(input_data) 
-
-        scores = self.model.svc.score(decomposed_inputs) 
+        scores = self.model.get_confidence_score(input_data) 
 
         return scores 
     
