@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Transcriptomic Cancer Classifier</title>
-        <link rel="stylesheet" href="static/index.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcriptomic Cancer Classifier</title>
+    <link rel="stylesheet" href="static/index.css">
+</head>
 
-    <body>
-        <h2>Transcriptomic Cancer Classification Panel</h2>
-        <p>Upload a gene expression matrix file (.csv, .tsv, or .txt) to evaluate patient samples.</p>
+<body>
+    <h2>Transcriptomic Cancer Classification Panel</h2>
+    <p>Upload a gene expression matrix file (.csv, .tsv, or .txt) to evaluate patient samples.</p>
 
-        <form id="uploadForm">
-            <div class="upload-box">
-                <input type="file" id="fileInput" accept=".csv,.tsv,.txt" required>
-            </div>
-            <button type="submit">Run Pipeline Inference</button>
-        </form>
+    <form id="uploadForm">
+        <div class="upload-box">
+            <input type="file" id="fileInput" accept=".csv,.tsv,.txt" required>
+        </div>
+        <button type="submit">Run Pipeline Inference</button>
+    </form>
 
-        <div id="results"></div>
+    <div id="statusMessage"></div>
 
-        <script src="static/index.js"></script>
-    </body>
+    <div id="resultsContainer" style="display: none;">
+        <h3>Inference Results</h3>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Sample ID</th>
+                    <th>Predicted Class</th>
+                    <th>Confidence Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+    <script src="static/index.js"></script>
+</body>
 
 </html>

@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 600px;
+    max-width: 800px;
     margin: 50px auto;
     padding: 20px;
     line-height: 1.6;
@@ -23,10 +23,40 @@ button {
     margin-top: 15px;
 }
 
-#results {
+#statusMessage {
     margin-top: 20px;
-    padding: 15px;
-    background: #e9ecef;
-    display: none;
-    white-space: pre-wrap;
+    font-weight: bold;
+    color: #555;
+}
+
+/* --- New Table Styles --- */
+#resultsContainer {
+    margin-top: 30px;
+}
+
+#resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#resultsTable th, #resultsTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#resultsTable th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+}
+
+#resultsTable tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#resultsTable tr:hover {
+    background-color: #f1f3f5;
 }
