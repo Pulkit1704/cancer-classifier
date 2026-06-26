@@ -9,33 +9,44 @@
 </head>
 
 <body>
-    <h2>Transcriptomic Cancer Classification Panel</h2>
-    <p>Upload a gene expression matrix file (.csv, .tsv, or .txt) to evaluate patient samples.</p>
+    <div class="container">
+        <h2>Transcriptomic Cancer Classification Panel</h2>
+        <p class="subtitle">Upload a gene expression matrix file to evaluate patient samples in real-time.</p>
 
-    <form id="uploadForm">
-        <div class="upload-box">
-            <input type="file" id="fileInput" accept=".csv,.tsv,.txt" required>
-        </div>
-        <button type="submit">Run Pipeline Inference</button>
-    </form>
+        <form id="uploadForm">
+            <div class="upload-box" id="dropZone">
+                <input type="file" id="fileInput" accept=".csv,.tsv,.txt" required>
+                <div class="upload-content">
+                    <div class="upload-icon">🧬</div>
+                    <p class="upload-text">Drag & drop your matrix file here or <span class="browse-btn">browse</span></p>
+                    <p class="file-types">Supports .csv, .tsv, .txt (Gene Expression Matrix)</p>
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <span class="file-icon">📄</span>
+                    <span id="fileName" class="file-name">matrix.csv</span>
+                    <span id="removeFile" class="remove-file">&times;</span>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn">Run Pipeline Inference</button>
+        </form>
 
-    <div id="statusMessage"></div>
+        <div id="statusMessage"></div>
 
-    <div id="resultsContainer" style="display: none;">
-        <h3>Inference Results</h3>
-        <table id="resultsTable">
-            <thead>
-                <tr>
-                    <th>Sample ID</th>
-                    <th>Predicted Class</th>
-                    <th>Confidence Score</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div id="resultsContainer" style="display: none;">
+            <h3>Inference Results</h3>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Sample ID</th>
+                        <th>Predicted Class</th>
+                        <th>Confidence Score</th>
+                    </tr>
+                </thead>
+                <tbody>
                 </tbody>
-        </table>
+            </table>
+        </div>
     </div>
-
     <script src="static/index.js"></script>
 </body>
 
